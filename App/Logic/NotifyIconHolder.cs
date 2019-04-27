@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Drawing;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using App.Annotations;
 using App.Properties;
+using App.Utils;
 
 namespace App.Logic
 {
@@ -16,13 +16,14 @@ namespace App.Logic
 
         public NotifyIconHolder(
             [NotNull] NotifyIcon notifyIcon,
-            [NotNull] Provider<MainWindow> mainWindowProvider
+            [NotNull] Provider<MainWindow> mainWindowProvider,
+            [NotNull] AppUtils appUtils
         )
         {
             NotifyIcon = notifyIcon;
             _mainWindowProvider = mainWindowProvider;
 
-            notifyIcon.Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
+            notifyIcon.Icon = Icon.ExtractAssociatedIcon(appUtils.GetExecutablePath());
             notifyIcon.Text = Resources.AppTitle;
             notifyIcon.MouseClick += NotifyIcon_OnMouseClick;
         }

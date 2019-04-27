@@ -93,6 +93,7 @@
     </Compile>
     <Compile Include="Operations\IOperation.cs" />
     <Compile Include="Operations\MappingOperation.cs" />
+    <Compile Include="Utils\AppUtils.cs" />
     <Compile Include="ViewModels\KeyToKeyViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewMappingWindowViewModel.cs" />

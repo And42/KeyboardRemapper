@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using App.Logic;
 using App.Operations;
+using App.Utils;
 using App.ViewModels;
 using Autofac;
 using SettingsManager;
@@ -32,10 +33,13 @@ namespace App
             // operations
             container.RegisterType<MappingOperation>().SingleInstance();
 
+            // utils
+            container.RegisterType<AppUtils>().SingleInstance();
+
             container.Register(context =>
             {
                 return new SettingsBuilder<AppSettings>()
-                    .WithFile(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "appSettings.json"))
+                    .WithFile(Path.Combine(context.Resolve<AppUtils>().GetExecutableDir(), "appSettings.json"))
                     .WithProcessor(new JsonModelProcessor())
                     .Build();
             }).SingleInstance().As<AppSettings>();

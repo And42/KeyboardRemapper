@@ -14,12 +14,18 @@
         WindowState="Minimized"
         ShowInTaskbar="False">
     <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ListView ItemsSource="{Binding KeyMappings}">
+        <ListView Grid.RowSpan="3" ItemsSource="{Binding KeyMappings}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -34,7 +40,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel Grid.Column="1" Margin="5 0 0 0" MinWidth="100">
+        <StackPanel Grid.Column="2" MinWidth="100">
             <StackPanel.Resources>
                 <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                     <Setter Property="Margin" Value="0 0 0 5"/>
@@ -45,5 +51,7 @@
             <Button Content="Add" Command="{Binding AddMappingCommand}"/>
             <Button Content="Clear" Command="{Binding ClearMappingsCommand}"/>
         </StackPanel>
+
+        <CheckBox Grid.Row="2" Grid.Column="2" Content="Run when computer starts" IsChecked="{Binding StartWithWindows}"/>
     </Grid>
 </Window>
