@@ -88,7 +88,7 @@
     <Compile Include="Logic\KeyMappingsHandler.cs" />
     <Compile Include="Logic\NotifyIconHolder.cs" />
     <Compile Include="Logic\Provider.cs" />
-    <Compile Include="NewMappingWindow.xaml.cs">
+    <Compile Include="Windows\NewMappingWindow.xaml.cs">
       <DependentUpon>NewMappingWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Operations\IOperation.cs" />
@@ -97,7 +97,7 @@
     <Compile Include="ViewModels\KeyToKeyViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewMappingWindowViewModel.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -107,11 +107,11 @@
     </Compile>
     <Compile Include="Logic\HooksHandler.cs" />
     <Compile Include="Logic\WinApi.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="NewMappingWindow.xaml">
+    <Page Include="Windows\NewMappingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

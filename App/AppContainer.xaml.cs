@@ -5,6 +5,7 @@ using App.Logic;
 using App.Operations;
 using App.Utils;
 using App.ViewModels;
+using App.Windows;
 using Autofac;
 using SettingsManager;
 using SettingsManager.ModelProcessors;

@@ -3,7 +3,7 @@ using System.Windows.Input;
 using App.Annotations;
 using App.ViewModels;
 
-namespace App
+namespace App.Windows
 {
     public partial class NewMappingWindow
     {

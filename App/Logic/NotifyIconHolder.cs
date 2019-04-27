@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using App.Annotations;
 using App.Properties;
 using App.Utils;
+using App.Windows;
 
 namespace App.Logic
 {

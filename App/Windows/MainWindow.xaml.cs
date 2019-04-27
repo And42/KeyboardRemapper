@@ -4,7 +4,7 @@ using App.Annotations;
 using App.Logic;
 using App.ViewModels;
 
-namespace App
+namespace App.Windows
 {
     public partial class MainWindow
     {
