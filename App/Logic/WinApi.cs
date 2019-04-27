@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 namespace App.Logic
 {
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public static class WinApi
     {
-        public const int WH_KEYBOARD_LL = 13; // LowLevel-hook fro the keyboard
+        public const int WH_KEYBOARD_LL = 13; // LowLevel-hook for the keyboard
         public const int WM_KEYDOWN = 0x100;
         public const int WM_KEYUP = 0x101;
 

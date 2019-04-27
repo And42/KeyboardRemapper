@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Forms;
 using App.Logic;
@@ -36,13 +35,11 @@ namespace App
             // utils
             container.RegisterType<AppUtils>().SingleInstance();
 
-            container.Register(context =>
-            {
-                return new SettingsBuilder<AppSettings>()
-                    .WithFile(Path.Combine(context.Resolve<AppUtils>().GetExecutableDir(), "appSettings.json"))
-                    .WithProcessor(new JsonModelProcessor())
-                    .Build();
-            }).SingleInstance().As<AppSettings>();
+            container.Register(context => new SettingsBuilder<AppSettings>()
+                .WithFile(Path.Combine(context.Resolve<AppUtils>().GetExecutableDir() ?? string.Empty, "appSettings.json"))
+                .WithProcessor(new JsonModelProcessor())
+                .Build()
+            ).SingleInstance().As<AppSettings>();
             container.RegisterType<HooksHandler>().SingleInstance();
             container.RegisterGeneric(typeof(Provider<>)).SingleInstance();
             container.RegisterType<NotifyIcon>().SingleInstance();

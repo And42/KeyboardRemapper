@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Threading;
 using App.Annotations;
 
 namespace App.Logic
 {
     public class HooksHandler : IDisposable
     {
+        // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly WinApi.LowLevelKeyboardProc _hookProc;
         private readonly IntPtr _hookPtr;
         private readonly Dictionary<int, List<Action>> _hooks = new Dictionary<int, List<Action>>();
