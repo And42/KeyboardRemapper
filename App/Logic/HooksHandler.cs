@@ -11,7 +11,7 @@ namespace App.Logic
         private readonly WinApi.LowLevelKeyboardProc _hookProc;
         private readonly IntPtr _hookPtr;
         private readonly Dictionary<int, List<Action>> _hooks = new Dictionary<int, List<Action>>();
-        private volatile int _disposed;
+        private readonly AtomicBoolean _disposed = new AtomicBoolean();
 
         public HooksHandler()
         {
@@ -48,7 +48,7 @@ namespace App.Logic
 
         public void Dispose()
         {
-            if (Interlocked.CompareExchange(ref _disposed, 1, 0) == 1)
+            if (!_disposed.CompareAndSet(false, true))
                 return;
 
             WinApi.UnhookWindowsHookEx(_hookPtr);
@@ -79,7 +79,7 @@ namespace App.Logic
 
         private void CheckDisposed()
         {
-            if (_disposed == 1)
+            if (_disposed.Get())
                 throw new ObjectDisposedException(nameof(HooksHandler));
         }
     }

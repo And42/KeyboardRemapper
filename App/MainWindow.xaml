@@ -4,11 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:App.ViewModels"
+        xmlns:properties="clr-namespace:App.Properties"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="{x:Static properties:Resources.AppTitle}" 
         Height="300" Width="600" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}">
+        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+        StateChanged="Window_OnStateChanged"
+        WindowState="Minimized"
+        ShowInTaskbar="False">
     <Grid Margin="5">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

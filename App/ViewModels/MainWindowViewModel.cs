@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using WindowsInput;
-using WindowsInput.Native;
+﻿using System.Collections.ObjectModel;
 using App.Annotations;
 using App.Logic;
 using App.Operations;
@@ -18,33 +14,22 @@ namespace App.ViewModels
         public IActionCommand AddMappingCommand { get; }
         public IActionCommand ClearMappingsCommand { get; }
 
-        [NotNull] private readonly HooksHandler _hooksHandler;
-        [NotNull] private readonly AppSettings _appSettings;
+        [NotNull] private readonly KeyMappingsHandler _keyMappingsHandler;
         [NotNull] private readonly Provider<NewMappingWindow> _newMappingWindowProvider;
         [NotNull] private readonly MappingOperation _mappingOperation;
 
-        private readonly InputSimulator _inputSimulator = new InputSimulator();
-
         public MainWindowViewModel(
-            [NotNull] HooksHandler hooksHandler,
-            [NotNull] AppSettings appSettings,
+            [NotNull] KeyMappingsHandler keyMappingsHandler,
             [NotNull] Provider<NewMappingWindow> newMappingWindowProvider,
             [NotNull] MappingOperation mappingOperation
         )
         {
-            _hooksHandler = hooksHandler;
-            _appSettings = appSettings;
+            _keyMappingsHandler = keyMappingsHandler;
             _newMappingWindowProvider = newMappingWindowProvider;
             _mappingOperation = mappingOperation;
 
-            if (appSettings.KeyMappings != null)
-            {
-                foreach (var mapping in appSettings.KeyMappings)
-                {
-                    hooksHandler.AddHook(mapping.Key, CreateMappingHandler(mapping.Value));
-                    KeyMappings.Add(new KeyToKeyViewModel {SourceKey = mapping.Key, MappedKey = mapping.Value});
-                }
-            }
+            foreach (var mapping in keyMappingsHandler.KeyMappings)
+                KeyMappings.Add(new KeyToKeyViewModel {SourceKey = mapping.Key, MappedKey = mapping.Value});
 
             AddMappingCommand = new ActionCommand(AddMapping_Execute);
             ClearMappingsCommand = new ActionCommand(ClearMappings_Execute);
@@ -57,27 +42,15 @@ namespace App.ViewModels
 
             if (_mappingOperation.Success)
             {
-                _hooksHandler.AddHook(_mappingOperation.SourceKey, CreateMappingHandler(_mappingOperation.MappedKey));
+                _keyMappingsHandler.AddMapping(_mappingOperation.SourceKey, _mappingOperation.MappedKey);
                 KeyMappings.Add(new KeyToKeyViewModel {SourceKey = _mappingOperation.SourceKey, MappedKey = _mappingOperation.MappedKey});
-                UpdateSettings();
             }
         }
 
         private void ClearMappings_Execute()
         {
-            _hooksHandler.RemoveAllHooks();
+            _keyMappingsHandler.RemoveAllMappings();
             KeyMappings.Clear();
-            UpdateSettings();
-        }
-
-        private void UpdateSettings()
-        {
-            _appSettings.KeyMappings = KeyMappings.ToDictionary(it => it.SourceKey, it => it.MappedKey);
-        }
-
-        private Action CreateMappingHandler(int keyCode)
-        {
-            return () => _inputSimulator.Keyboard.KeyPress((VirtualKeyCode)keyCode);
         }
     }
 }
