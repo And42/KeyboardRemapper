@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Forms;
 using App.Logic;
-using App.Operations;
-using App.Utils;
+using App.Logic.Operations;
+using App.Logic.Utils;
 using App.ViewModels;
 using App.Windows;
 using Autofac;

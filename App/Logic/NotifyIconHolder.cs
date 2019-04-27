@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
 using App.Annotations;
+using App.Logic.Utils;
 using App.Properties;
-using App.Utils;
 using App.Windows;
 
 namespace App.Logic

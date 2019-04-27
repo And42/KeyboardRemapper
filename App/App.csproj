@@ -91,9 +91,9 @@
     <Compile Include="Windows\NewMappingWindow.xaml.cs">
       <DependentUpon>NewMappingWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Operations\IOperation.cs" />
-    <Compile Include="Operations\MappingOperation.cs" />
-    <Compile Include="Utils\AppUtils.cs" />
+    <Compile Include="Logic\Operations\Operation.cs" />
+    <Compile Include="Logic\Operations\MappingOperation.cs" />
+    <Compile Include="Logic\Utils\AppUtils.cs" />
     <Compile Include="ViewModels\KeyToKeyViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NewMappingWindowViewModel.cs" />

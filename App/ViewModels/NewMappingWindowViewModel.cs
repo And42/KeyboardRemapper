@@ -1,5 +1,5 @@
 ﻿using App.Annotations;
-using App.Operations;
+using App.Logic.Operations;
 using MVVM_Tools.Code.Classes;
 using MVVM_Tools.Code.Commands;
 

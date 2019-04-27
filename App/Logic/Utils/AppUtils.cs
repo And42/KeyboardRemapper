@@ -2,7 +2,7 @@
 using System.Reflection;
 using App.Annotations;
 
-namespace App.Utils
+namespace App.Logic.Utils
 {
     public class AppUtils
     {

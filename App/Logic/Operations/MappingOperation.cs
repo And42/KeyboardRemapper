@@ -1,4 +1,4 @@
-﻿namespace App.Operations
+﻿namespace App.Logic.Operations
 {
     public class MappingOperation : Operation
     {
