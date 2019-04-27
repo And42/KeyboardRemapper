@@ -138,6 +138,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="FodyWeavers.xml" />
     <Content Include="Libraries\AlphaFS.dll" />
     <Content Include="Libraries\Castle.Core.dll" />
     <Content Include="Libraries\MVVM_Tools.dll" />
