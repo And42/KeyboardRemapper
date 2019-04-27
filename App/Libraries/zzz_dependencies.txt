@@ -1,0 +1,3 @@
+﻿C:\Files\Programming\Repos\SettingsManager\SettingsManager\bin\Release\SettingsManager.dll
+C:\Files\Programming\MyLang\Libs\MVVM Tools\MVVM Tools\bin\Release\MVVM_Tools.dll
+only_dll

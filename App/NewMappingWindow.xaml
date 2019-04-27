@@ -1,0 +1,43 @@
+﻿<Window x:Class="App.NewMappingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:App.ViewModels"
+        mc:Ignorable="d"
+        Title="{Binding RecordingState, Mode=OneWay}"
+        Height="200" Width="400" MinHeight="200" MinWidth="400"
+        WindowStartupLocation="CenterScreen"
+        d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel}"
+        KeyDown="Window_OnKeyDown">
+    <Grid Margin="5">
+        <Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                <Setter Property="Margin" Value="0 5 0 0"/>
+                <Setter Property="Padding" Value="7 3"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <TextBox Text="{Binding SourceKey}"/>
+        <TextBox Grid.Column="2" Text="{Binding MappedKey}"/>
+
+        <Button Grid.Row="1" Content="Source key" Command="{Binding RecordSourceKeyCommand}"/>
+        <Button Grid.Row="1" Grid.Column="2" Content="Mapped key" Command="{Binding RecordMappedKeyCommand}"/>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" >
+            <Button Content="StopRecording" Command="{Binding StopRecordingCommand}"/>
+            <Button Content="Apply" Click="Apply_OnClick" Margin="5 5 0 0"/>
+        </StackPanel>
+    </Grid>
+</Window>
