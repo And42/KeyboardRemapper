@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using App.Annotations;
 using App.Logic;
+using App.Logic.JsonModels;
 using App.Logic.Operations;
 using App.Logic.Utils;
 using App.Properties;
@@ -13,6 +16,7 @@ using App.Windows;
 using Microsoft.Win32;
 using MVVM_Tools.Code.Classes;
 using MVVM_Tools.Code.Commands;
+using Newtonsoft.Json;
 
 namespace App.ViewModels
 {
@@ -52,6 +56,8 @@ namespace App.ViewModels
         public IActionCommand AddMappingCommand { get; }
         public IActionCommand DeleteMappingCommand { get; }
         public IActionCommand ClearMappingsCommand { get; }
+        public IActionCommand ImportMappingsCommand { get; }
+        public IActionCommand ExportMappingsCommand { get; }
 
         [NotNull] private readonly KeyMappingsHandler _keyMappingsHandler;
         [NotNull] private readonly Provider<NewMappingWindow> _newMappingWindowProvider;
@@ -85,6 +91,8 @@ namespace App.ViewModels
             AddMappingCommand = new ActionCommand(AddMapping_Execute);
             DeleteMappingCommand = new ActionCommand(DeleteMapping_Execute, () => SelectedKey != null);
             ClearMappingsCommand = new ActionCommand(ClearMappings_Execute);
+            ImportMappingsCommand = new ActionCommand(ImportMappings_Execute);
+            ExportMappingsCommand = new ActionCommand(ExportMappings_Execute);
             _startWithWindows = GetStartupValue();
 
             PropertyChanged += OnPropertyChanged;
@@ -152,7 +160,68 @@ namespace App.ViewModels
             _keyMappingsHandler.RemoveAllMappings();
             KeyMappings.Clear();
         }
-        
+
+        private void ImportMappings_Execute()
+        {
+            var dialog = new OpenFileDialog
+            {
+                Filter = "Exported mappings (*.json)|*.json",
+                CheckFileExists = true
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            if (KeyMappings.Count > 0)
+            {
+                var confirmation = MessageBox.Show(
+                    "Existing mappings will be cleared. Want to continue?",
+                    "Confirmation",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question
+                );
+
+                if (confirmation == MessageBoxResult.No)
+                    return;
+            }
+
+            var exportedModel = JsonConvert.DeserializeObject<ExportedMappings>(File.ReadAllText(dialog.FileName, Encoding.UTF8));
+
+            _keyMappingsHandler.RemoveAllMappings();
+            KeyMappings.Clear();
+
+            if (exportedModel.KeyMappings == null)
+                return;
+
+            foreach (var mapping in exportedModel.KeyMappings)
+            {
+                _keyMappingsHandler.SetMapping(mapping.Key, mapping.Value);
+                KeyMappings.Add(new KeyToKeyViewModel {SourceKey = mapping.Key, MappedKey = mapping.Value});
+            }
+        }
+
+        private void ExportMappings_Execute()
+        {
+            var dialog = new SaveFileDialog
+            {
+                Filter = "Exported mappings (*.json)|*.json"
+            };
+
+            if (dialog.ShowDialog() != true)
+                return;
+
+            var exportedModel = new ExportedMappings
+            {
+                KeyMappings = KeyMappings.ToDictionary(it => it.SourceKey, it => it.MappedKey)
+            };
+
+            var fileDir = Path.GetDirectoryName(dialog.FileName) ?? string.Empty;
+            if (!Directory.Exists(fileDir))
+                Directory.CreateDirectory(fileDir);
+
+            File.WriteAllText(dialog.FileName, JsonConvert.SerializeObject(exportedModel, Formatting.Indented), Encoding.UTF8);
+        }
+
         private bool GetStartupValue()
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(StartupRegistryKey, false);

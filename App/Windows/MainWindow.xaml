@@ -54,6 +54,8 @@
             <Button Content="Add" Command="{Binding AddMappingCommand}"/>
             <Button Content="Delete" Command="{Binding DeleteMappingCommand}"/>
             <Button Content="Clear" Command="{Binding ClearMappingsCommand}"/>
+            <Button Content="Import" Command="{Binding ImportMappingsCommand}"/>
+            <Button Content="Export" Command="{Binding ExportMappingsCommand}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="2">
