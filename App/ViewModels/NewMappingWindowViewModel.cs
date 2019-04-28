@@ -1,4 +1,5 @@
-﻿using App.Annotations;
+﻿using System.ComponentModel;
+using App.Annotations;
 using App.Logic.Operations;
 using MVVM_Tools.Code.Classes;
 using MVVM_Tools.Code.Commands;
@@ -51,8 +52,10 @@ namespace App.ViewModels
             RecordSourceKeyCommand = new ActionCommand(() => RecordingState = RecordingStates.SourceKey);
             RecordMappedKeyCommand = new ActionCommand(() => RecordingState = RecordingStates.MappedKey);
             RecordKeyCommand = new ActionCommand<int>(RecordKey_Execute, _ => RecordingState != RecordingStates.Idle);
-            StopRecordingCommand = new ActionCommand(() => RecordingState = RecordingStates.Idle);
+            StopRecordingCommand = new ActionCommand(() => RecordingState = RecordingStates.Idle, () => RecordingState != RecordingStates.Idle);
             ApplyCommand = new ActionCommand(Apply_Execute);
+
+            PropertyChanged += OnPropertyChanged;
         }
 
         private void RecordKey_Execute(int keyCode)
@@ -61,6 +64,8 @@ namespace App.ViewModels
                 SourceKey = keyCode;
             else
                 MappedKey = keyCode;
+
+            RecordingState = RecordingStates.Idle;
         }
 
         private void Apply_Execute()
@@ -68,6 +73,16 @@ namespace App.ViewModels
             _mappingOperation.SourceKey = SourceKey;
             _mappingOperation.MappedKey = MappedKey;
             _mappingOperation.Success = true;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(RecordingState):
+                    StopRecordingCommand.RaiseCanExecuteChanged();
+                    break;
+            }
         }
     }
 }

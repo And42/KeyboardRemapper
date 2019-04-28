@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:App.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding RecordingState, Mode=OneWay, Converter={StaticResource RecordingStateToStringConverter}}"
         Height="200" Width="590" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel, IsDesignTimeCreatable=True}"
@@ -13,6 +12,9 @@
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
     </Window.Style>
+    <Window.Title>
+        <Binding StringFormat="{}New mapping - {0}" Path="RecordingState" Converter="{StaticResource RecordingStateToStringConverter}"/>
+    </Window.Title>
     <Grid Margin="5">
         <Grid.Resources>
             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
@@ -41,11 +43,11 @@
         <TextBox Text="{Binding SourceKey, Converter={StaticResource KeyToRepresentationConverter}}" Style="{StaticResource MappingText}"/>
         <TextBox Grid.Column="2" Text="{Binding MappedKey, Converter={StaticResource KeyToRepresentationConverter}}" Style="{StaticResource MappingText}"/>
 
-        <Button Grid.Row="1" Content="Source key" Command="{Binding RecordSourceKeyCommand}"/>
-        <Button Grid.Row="1" Grid.Column="2" Content="Mapped key" Command="{Binding RecordMappedKeyCommand}"/>
+        <Button Grid.Row="1" Content="Record source key" Command="{Binding RecordSourceKeyCommand}"/>
+        <Button Grid.Row="1" Grid.Column="2" Content="Record mapped key" Command="{Binding RecordMappedKeyCommand}"/>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" >
-            <Button Content="StopRecording" Command="{Binding StopRecordingCommand}"/>
+            <Button Content="Stop recording" Command="{Binding StopRecordingCommand}"/>
             <Button Content="Apply" Click="Apply_OnClick" Margin="5 5 0 0"/>
         </StackPanel>
     </Grid>
