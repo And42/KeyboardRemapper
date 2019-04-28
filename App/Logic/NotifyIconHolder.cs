@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
-using App.Annotations;
 using App.Logic.Utils;
 using App.Properties;
 using App.Windows;
+using JetBrains.Annotations;
 
 namespace App.Logic
 {

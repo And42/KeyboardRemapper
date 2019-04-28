@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using WindowsInput;
 using WindowsInput.Native;
-using App.Annotations;
+using JetBrains.Annotations;
 
 namespace App.Logic
 {

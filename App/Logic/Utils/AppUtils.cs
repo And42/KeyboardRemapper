@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
-using App.Annotations;
+using JetBrains.Annotations;
 
 namespace App.Logic.Utils
 {

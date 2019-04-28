@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows;
-using App.Annotations;
 using App.Logic;
 using App.ViewModels;
+using JetBrains.Annotations;
 
 namespace App.Windows
 {

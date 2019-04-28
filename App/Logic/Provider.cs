@@ -1,5 +1,5 @@
-﻿using App.Annotations;
-using Autofac;
+﻿using Autofac;
+using JetBrains.Annotations;
 
 namespace App.Logic
 {

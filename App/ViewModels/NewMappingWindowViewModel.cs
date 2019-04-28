@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using WindowsInput.Native;
-using App.Annotations;
 using App.Logic.Operations;
+using JetBrains.Annotations;
 using MVVM_Tools.Code.Classes;
 using MVVM_Tools.Code.Commands;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using App.Annotations;
+using JetBrains.Annotations;
 
 namespace App.Logic
 {

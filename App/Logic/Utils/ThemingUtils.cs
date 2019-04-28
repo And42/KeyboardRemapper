@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using AdonisUI;
-using App.Annotations;
+using JetBrains.Annotations;
 using MVVM_Tools.Code.Classes;
 
 namespace App.Logic.Utils
