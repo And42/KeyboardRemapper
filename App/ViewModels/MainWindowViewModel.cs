@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using App.Annotations;
 using App.Logic;
@@ -64,6 +65,33 @@ namespace App.ViewModels
 
             if (_mappingOperation.Success)
             {
+                if (_keyMappingsHandler.KeyMappings.ContainsKey(_mappingOperation.SourceKey))
+                {
+                    int alreadyMappedKey = _keyMappingsHandler.KeyMappings[_mappingOperation.SourceKey];
+
+                    if (alreadyMappedKey == _mappingOperation.MappedKey)
+                    {
+                        MessageBox.Show(
+                            "Mapping with the provided keys already exists. Doing nothing",
+                            "Information",
+                            MessageBoxButton.OK, MessageBoxImage.Information
+                        );
+                        return;
+                    }
+
+                    var confirmation = MessageBox.Show(
+                        $"Already have a mapping for the `{_mappingOperation.SourceKey}` key (currently mapped to `{alreadyMappedKey}`). Do you want to remap it?",
+                        "Confirmation",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question
+                    );
+
+                    if (confirmation == MessageBoxResult.No)
+                        return;
+
+                    _keyMappingsHandler.RemoveMapping(_mappingOperation.SourceKey);
+                    KeyMappings.Remove(KeyMappings.First(it => it.SourceKey == _mappingOperation.SourceKey));
+                }
+
                 _keyMappingsHandler.SetMapping(_mappingOperation.SourceKey, _mappingOperation.MappedKey);
                 KeyMappings.Add(new KeyToKeyViewModel {SourceKey = _mappingOperation.SourceKey, MappedKey = _mappingOperation.MappedKey});
             }
