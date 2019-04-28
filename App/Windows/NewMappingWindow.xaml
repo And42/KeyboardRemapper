@@ -10,13 +10,16 @@
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel, IsDesignTimeCreatable=True}"
         Closed="Window_OnClosed">
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
     <Grid Margin="5">
         <Grid.Resources>
             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Margin" Value="0 5 0 0"/>
                 <Setter Property="Padding" Value="7 3"/>
             </Style>
-            <Style x:Key="MappingText" TargetType="TextBox">
+            <Style x:Key="MappingText" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
                 <Setter Property="HorizontalContentAlignment" Value="Center"/>
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
                 <Setter Property="FontSize" Value="20"/>

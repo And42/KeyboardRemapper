@@ -90,12 +90,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Logic\AppSettings.cs" />
+    <Compile Include="Logic\AppThemes.cs" />
     <Compile Include="Logic\AtomicBoolean.cs" />
     <Compile Include="Logic\Converters\KeyToRepresentationConverter.cs" />
     <Compile Include="Logic\Converters\RecordingStateToStringConverter.cs" />
     <Compile Include="Logic\KeyMappingsHandler.cs" />
     <Compile Include="Logic\NotifyIconHolder.cs" />
     <Compile Include="Logic\Provider.cs" />
+    <Compile Include="Logic\Utils\ThemingUtils.cs" />
     <Compile Include="Windows\NewMappingWindow.xaml.cs">
       <DependentUpon>NewMappingWindow.xaml</DependentUpon>
     </Compile>

@@ -35,7 +35,9 @@ namespace App
 
             // utils
             container.RegisterType<AppUtils>().SingleInstance();
+            container.RegisterType<ThemingUtils>().SingleInstance();
 
+            // other
             container.Register(context => new SettingsBuilder<AppSettings>()
                 .WithFile(Path.Combine(context.Resolve<AppUtils>().GetExecutableDir() ?? string.Empty, "appSettings.json"))
                 .WithProcessor(new JsonModelProcessor())
@@ -65,6 +67,9 @@ namespace App
         {
             // constructor invocation starts hooking
             _container.Resolve<KeyMappingsHandler>();
+
+            // apply app theme
+            _container.Resolve<ThemingUtils>().ApplyCurrent();
 
             // in release window will be shown minimized
             var mainWindow = _container.Resolve<MainWindow>();

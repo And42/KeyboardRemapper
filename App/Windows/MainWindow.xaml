@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:App.ViewModels"
         xmlns:properties="clr-namespace:App.Properties"
+        xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
         mc:Ignorable="d"
         Title="{x:Static properties:Resources.AppTitle}" 
         Height="300" Width="600" MinHeight="200" MinWidth="400"
@@ -12,6 +13,9 @@
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
         StateChanged="Window_OnStateChanged"
         UseLayoutRounding="True">
+    <Window.Style>
+        <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>
+    </Window.Style>
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -24,7 +28,7 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox Grid.RowSpan="3" ItemsSource="{Binding KeyMappings}" BorderThickness="1">
+        <ListBox Grid.RowSpan="3" SelectedItem="{Binding SelectedKey}" ItemsSource="{Binding KeyMappings}" BorderThickness="1" BorderBrush="{DynamicResource {x:Static adonisUi:Brushes.Layer0BorderBrush}}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
@@ -48,9 +52,16 @@
             </StackPanel.Resources>
 
             <Button Content="Add" Command="{Binding AddMappingCommand}"/>
+            <Button Content="Delete" Command="{Binding DeleteMappingCommand}"/>
             <Button Content="Clear" Command="{Binding ClearMappingsCommand}"/>
         </StackPanel>
 
-        <CheckBox Grid.Row="2" Grid.Column="2" Content="Run when computer starts" IsChecked="{Binding StartWithWindows}"/>
+        <StackPanel Grid.Row="2" Grid.Column="2">
+            <DockPanel>
+                <TextBlock Text="App theme:" VerticalAlignment="Center"/>
+                <ComboBox SelectedItem="{Binding AppTheme}" ItemsSource="{Binding AvailableThemes}" Margin="5 0 0 0"/>
+            </DockPanel>
+            <CheckBox Content="Run when computer starts" IsChecked="{Binding StartWithWindows}" Margin="0 5 1 0"/>
+        </StackPanel>
     </Grid>
 </Window>
