@@ -60,8 +60,15 @@ namespace App.ViewModels
 
         private void AddMapping_Execute()
         {
+            // disable all mappings to not confuse anyone who will be setting up a new mapping
+            _keyMappingsHandler.RemoveAllMappings();
+
             _mappingOperation.Reset();
             _newMappingWindowProvider.Get().ShowDialog();
+
+            // restore all the disabled mappings
+            foreach (var mapping in KeyMappings)
+                _keyMappingsHandler.SetMapping(mapping.SourceKey, mapping.MappedKey);
 
             if (_mappingOperation.Success)
             {
