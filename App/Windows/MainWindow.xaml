@@ -10,9 +10,7 @@
         Height="300" Width="600" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
-        StateChanged="Window_OnStateChanged"
-        WindowState="Minimized"
-        ShowInTaskbar="False">
+        StateChanged="Window_OnStateChanged">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

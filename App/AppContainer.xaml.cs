@@ -66,9 +66,15 @@ namespace App
             // constructor invocation starts hooking
             _container.Resolve<KeyMappingsHandler>();
 
-            // window will be shown minimized
-            _container.Resolve<MainWindow>().Show();
+            // in release window will be shown minimized
+            var mainWindow = _container.Resolve<MainWindow>();
+#if !DEBUG
+            mainWindow.WindowState = WindowState.Minimized;
+            mainWindow.ShowInTaskbar = false;
             _container.Resolve<NotifyIconHolder>().NotifyIcon.Visible = true;
+#endif
+
+            mainWindow.Show();
         }
     }
 }
