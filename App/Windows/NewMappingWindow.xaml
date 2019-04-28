@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:App.ViewModels"
         mc:Ignorable="d"
-        Title="{Binding RecordingState, Mode=OneWay}"
+        Title="{Binding RecordingState, Mode=OneWay, Converter={StaticResource RecordingStateToStringConverter}}"
         Height="200" Width="400" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel}"
+        d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel, IsDesignTimeCreatable=True}"
         Closed="Window_OnClosed">
     <Grid Margin="5">
         <Grid.Resources>
