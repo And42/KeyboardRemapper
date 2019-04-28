@@ -9,7 +9,7 @@
         Height="200" Width="400" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel}"
-        KeyDown="Window_OnKeyDown">
+        Closed="Window_OnClosed">
     <Grid Margin="5">
         <Grid.Resources>
             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">

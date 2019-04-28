@@ -1,6 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System;
+using System.Windows;
 using App.Annotations;
+using App.Logic;
 using App.ViewModels;
 
 namespace App.Windows
@@ -8,13 +9,29 @@ namespace App.Windows
     public partial class NewMappingWindow
     {
         [NotNull] private readonly NewMappingWindowViewModel _viewModel;
+        [NotNull] private readonly HooksHandler _hooksHandler;
 
-        public NewMappingWindow([NotNull] NewMappingWindowViewModel viewModel)
+        public NewMappingWindow(
+            [NotNull] NewMappingWindowViewModel viewModel,
+            [NotNull] HooksHandler hooksHandler
+        )
         {
             _viewModel = viewModel;
+            _hooksHandler = hooksHandler;
             DataContext = viewModel;
             InitializeComponent();
+
+            hooksHandler.SetAllKeysHandler(AllKeysHandler);
         }
+
+        private bool AllKeysHandler(int keyCode)
+        {
+            if (!_viewModel.RecordKeyCommand.CanExecute(keyCode))
+                return false;
+
+            _viewModel.RecordKeyCommand.Execute(keyCode);
+            return true;
+        } 
 
         private void Apply_OnClick(object sender, RoutedEventArgs e)
         {
@@ -25,12 +42,9 @@ namespace App.Windows
             }
         }
 
-        private void Window_OnKeyDown(object sender, KeyEventArgs e)
+        private void Window_OnClosed(object sender, EventArgs e)
         {
-            int keyCode = KeyInterop.VirtualKeyFromKey(e.Key);
-            
-            if (_viewModel.RecordKeyCommand.CanExecute(keyCode))
-                _viewModel.RecordKeyCommand.Execute(keyCode);
+            _hooksHandler.SetAllKeysHandler(null);
         }
     }
 }

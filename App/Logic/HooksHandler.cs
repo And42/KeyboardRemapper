@@ -13,11 +13,19 @@ namespace App.Logic
         private readonly Dictionary<int, Action> _hooks = new Dictionary<int, Action>();
         private readonly AtomicBoolean _disposed = new AtomicBoolean();
 
+        [CanBeNull]
+        private Func<int, bool> _allKeysHandler;
+
         public HooksHandler()
         {
             _hookProc = Hook;
             IntPtr hInstance = WinApi.LoadLibrary("user32");
             _hookPtr = WinApi.SetWindowsHookEx(WinApi.WH_KEYBOARD_LL, _hookProc, hInstance, 0);
+        }
+
+        public void SetAllKeysHandler([CanBeNull] Func<int, bool> keyHandler)
+        {
+            _allKeysHandler = keyHandler;
         }
 
         public void SetHook(int keyCode, [NotNull] Action handler)
@@ -55,12 +63,16 @@ namespace App.Logic
             if (code >= 0 && (keyDown || keyUp))
             {
                 int vkCode = Marshal.ReadInt32(lParam);
+
+                if (_allKeysHandler?.Invoke(vkCode) == true)
+                    return (IntPtr) 1;
+
                 if (_hooks.TryGetValue(vkCode, out Action handler))
                 {
                     if (keyDown)
                         handler();
 
-                    return (IntPtr)1;
+                    return (IntPtr) 1;
                 }
             }
 
