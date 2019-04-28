@@ -62,6 +62,7 @@
                 <ComboBox SelectedItem="{Binding AppTheme}" ItemsSource="{Binding AvailableThemes}" Margin="5 0 0 0"/>
             </DockPanel>
             <CheckBox Content="Run when computer starts" IsChecked="{Binding StartWithWindows}" Margin="0 5 1 0"/>
+            <CheckBox Content="Start minimized" IsChecked="{Binding StartMinimized}" Margin="0 5 1 0"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
-using AdonisUI;
 using App.Annotations;
 using App.Logic;
 using App.Logic.Operations;
@@ -31,6 +30,12 @@ namespace App.ViewModels
             set => SetProperty(ref _startWithWindows, value);
         }
 
+        public bool StartMinimized
+        {
+            get => _appSettings.StartMinimized;
+            set => _appSettings.StartMinimized = value;
+        }
+
         public AppThemes AppTheme
         {
             get => _themingUtils.CurrentTheme;
@@ -53,6 +58,7 @@ namespace App.ViewModels
         [NotNull] private readonly MappingOperation _mappingOperation;
         [NotNull] private readonly AppUtils _appUtils;
         [NotNull] private readonly ThemingUtils _themingUtils;
+        [NotNull] private readonly AppSettings _appSettings;
 
         private bool _startWithWindows;
         private KeyToKeyViewModel _selectedKey;
@@ -62,7 +68,8 @@ namespace App.ViewModels
             [NotNull] Provider<NewMappingWindow> newMappingWindowProvider,
             [NotNull] MappingOperation mappingOperation,
             [NotNull] AppUtils appUtils,
-            [NotNull] ThemingUtils themingUtils
+            [NotNull] ThemingUtils themingUtils,
+            [NotNull] AppSettings appSettings
         )
         {
             _keyMappingsHandler = keyMappingsHandler;
@@ -70,6 +77,7 @@ namespace App.ViewModels
             _mappingOperation = mappingOperation;
             _appUtils = appUtils;
             _themingUtils = themingUtils;
+            _appSettings = appSettings;
 
             foreach (var mapping in keyMappingsHandler.KeyMappings)
                 KeyMappings.Add(new KeyToKeyViewModel {SourceKey = mapping.Key, MappedKey = mapping.Value});
@@ -81,6 +89,7 @@ namespace App.ViewModels
 
             PropertyChanged += OnPropertyChanged;
             _themingUtils.PropertyChanged += ThemingUtils_OnPropertyChanged;
+            _appSettings.PropertyChanged += AppSettings_OnPropertyChanged;
         }
 
         private void DeleteMapping_Execute()
@@ -183,21 +192,6 @@ namespace App.ViewModels
                 case nameof(SelectedKey):
                     DeleteMappingCommand.RaiseCanExecuteChanged();
                     break;
-                case nameof(AppTheme):
-                    Uri newTheme;
-                    switch (AppTheme)
-                    {
-                        case AppThemes.Light:
-                            newTheme = ResourceLocator.LightColorScheme;
-                            break;
-                        case AppThemes.Dark:
-                            newTheme = ResourceLocator.DarkColorScheme;
-                            break;
-                        default:
-                            throw new ArgumentException($"Unknown app theme: `{AppTheme}`");
-                    }
-                    ResourceLocator.SetColorScheme(Application.Current.Resources, newTheme);
-                    break;
             }
         }
 
@@ -207,6 +201,16 @@ namespace App.ViewModels
             {
                 case nameof(ThemingUtils.CurrentTheme):
                     OnPropertyChanged(nameof(AppTheme));
+                    break;
+            }
+        }
+
+        private void AppSettings_OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(AppSettings.StartMinimized):
+                    OnPropertyChanged(nameof(StartMinimized));
                     break;
             }
         }

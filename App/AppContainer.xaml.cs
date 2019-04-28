@@ -71,13 +71,15 @@ namespace App
             // apply app theme
             _container.Resolve<ThemingUtils>().ApplyCurrent();
 
-            // in release window will be shown minimized
+            // start minimized if needed
             var mainWindow = _container.Resolve<MainWindow>();
-#if !DEBUG
-            mainWindow.WindowState = WindowState.Minimized;
-            mainWindow.ShowInTaskbar = false;
-            _container.Resolve<NotifyIconHolder>().NotifyIcon.Visible = true;
-#endif
+
+            if (_container.Resolve<AppSettings>().StartMinimized)
+            {
+                mainWindow.WindowState = WindowState.Minimized;
+                mainWindow.ShowInTaskbar = false;
+                _container.Resolve<NotifyIconHolder>().NotifyIcon.Visible = true;
+            }
 
             mainWindow.Show();
         }

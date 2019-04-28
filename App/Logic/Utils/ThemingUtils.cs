@@ -50,6 +50,7 @@ namespace App.Logic.Utils
             {
                 case nameof(AppSettings.AppTheme):
                     OnPropertyChanged(nameof(CurrentTheme));
+                    ApplyCurrent();
                     break;
             }
         }
