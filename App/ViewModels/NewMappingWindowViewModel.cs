@@ -1,4 +1,7 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using WindowsInput.Native;
 using App.Annotations;
 using App.Logic.Operations;
 using MVVM_Tools.Code.Classes;
@@ -12,6 +15,8 @@ namespace App.ViewModels
         {
             Idle, SourceKey, MappedKey
         }
+
+        public IReadOnlyList<int> AvailableKeys { get; } = Array.ConvertAll((VirtualKeyCode[]) Enum.GetValues(typeof(VirtualKeyCode)), it => (int) it);
 
         public int SourceKey
         {
@@ -31,6 +36,8 @@ namespace App.ViewModels
             private set => SetProperty(ref _recordingState, value);
         }
 
+        public IActionCommand<int> SetSourceKeyCommand { get; }
+        public IActionCommand<int> SetMappedKeyCommand { get; }
         public IActionCommand RecordSourceKeyCommand { get; }
         public IActionCommand RecordMappedKeyCommand { get; }
         public IActionCommand<int> RecordKeyCommand { get; }
@@ -49,6 +56,8 @@ namespace App.ViewModels
         {
             _mappingOperation = mappingOperation;
 
+            SetSourceKeyCommand = new ActionCommand<int>(keyCode => SourceKey = keyCode);
+            SetMappedKeyCommand = new ActionCommand<int>(keyCode => MappedKey = keyCode);
             RecordSourceKeyCommand = new ActionCommand(() => RecordingState = RecordingStates.SourceKey);
             RecordMappedKeyCommand = new ActionCommand(() => RecordingState = RecordingStates.MappedKey);
             RecordKeyCommand = new ActionCommand<int>(RecordKey_Execute, _ => RecordingState != RecordingStates.Idle);

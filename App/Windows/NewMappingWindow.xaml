@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:App.ViewModels"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Height="200" Width="590" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
@@ -17,6 +18,10 @@
     </Window.Title>
     <Grid Margin="5">
         <Grid.Resources>
+            <DataTemplate x:Key="KeyCodeTemplate" DataType="system:Int32">
+                <TextBlock Text="{Binding Converter={StaticResource KeyToRepresentationConverter}}"/>
+            </DataTemplate>
+
             <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
                 <Setter Property="Margin" Value="0 5 0 0"/>
                 <Setter Property="Padding" Value="7 3"/>
@@ -27,10 +32,15 @@
                 <Setter Property="FontSize" Value="20"/>
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
+            <Style x:Key="KeyBox" TargetType="ComboBox" BasedOn="{StaticResource {x:Type ComboBox}}">
+                <Setter Property="Margin" Value="0 5 0 0"/>
+                <Setter Property="ItemTemplate" Value="{StaticResource KeyCodeTemplate}"/>
+            </Style>
         </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -43,10 +53,13 @@
         <TextBox Text="{Binding SourceKey, Converter={StaticResource KeyToRepresentationConverter}}" Style="{StaticResource MappingText}"/>
         <TextBox Grid.Column="2" Text="{Binding MappedKey, Converter={StaticResource KeyToRepresentationConverter}}" Style="{StaticResource MappingText}"/>
 
-        <Button Grid.Row="1" Content="Record source key" Command="{Binding RecordSourceKeyCommand}"/>
-        <Button Grid.Row="1" Grid.Column="2" Content="Record mapped key" Command="{Binding RecordMappedKeyCommand}"/>
+        <ComboBox Grid.Row="1" SelectionChanged="SourceKeyBox_OnSelectionChanged" ItemsSource="{Binding AvailableKeys}" Style="{StaticResource KeyBox}"/>
+        <ComboBox Grid.Row="1" Grid.Column="2" SelectionChanged="MappedKeyBox_OnSelectionChanged" ItemsSource="{Binding AvailableKeys}" Style="{StaticResource KeyBox}"/>
 
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" >
+        <Button Grid.Row="2" Content="Record source key" Command="{Binding RecordSourceKeyCommand}"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="Record mapped key" Command="{Binding RecordMappedKeyCommand}"/>
+
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" >
             <Button Content="Stop recording" Command="{Binding StopRecordingCommand}"/>
             <Button Content="Apply" Click="Apply_OnClick" Margin="5 5 0 0"/>
         </StackPanel>

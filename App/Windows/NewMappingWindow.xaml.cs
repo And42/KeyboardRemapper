@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
 using App.Annotations;
 using App.Logic;
 using App.ViewModels;
@@ -45,6 +46,24 @@ namespace App.Windows
         private void Window_OnClosed(object sender, EventArgs e)
         {
             _hooksHandler.SetAllKeysHandler(null);
+        }
+
+        private void SourceKeyBox_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var selectedKey = ((ComboBox) sender).SelectedItem as int?;
+            if (selectedKey == null)
+                return;
+
+            _viewModel.SetSourceKeyCommand.Execute(selectedKey);
+        }
+
+        private void MappedKeyBox_OnSelectionChanged(object sender, RoutedEventArgs e)
+        {
+            var selectedKey = ((ComboBox)sender).SelectedItem as int?;
+            if (selectedKey == null)
+                return;
+
+            _viewModel.SetMappedKeyCommand.Execute(selectedKey);
         }
     }
 }
