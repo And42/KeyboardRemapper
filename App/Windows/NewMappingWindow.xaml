@@ -3,12 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:App.ViewModels"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:viewModels1="clr-namespace:App.Interfaces.ViewModels"
         mc:Ignorable="d"
         Height="200" Width="590" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance viewModels:NewMappingWindowViewModel, IsDesignTimeCreatable=True}"
+        d:DataContext="{d:DesignInstance viewModels1:INewMappingWindowViewModel, IsDesignTimeCreatable=False}"
         Closed="Window_OnClosed">
     <Window.Style>
         <Style TargetType="Window" BasedOn="{StaticResource {x:Type Window}}"/>

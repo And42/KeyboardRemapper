@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewModels="clr-namespace:App.ViewModels"
         xmlns:properties="clr-namespace:App.Properties"
         xmlns:adonisUi="clr-namespace:AdonisUI;assembly=AdonisUI"
+        xmlns:viewModels1="clr-namespace:App.Interfaces.ViewModels"
         mc:Ignorable="d"
         Title="{x:Static properties:Resources.AppTitle}" 
         Height="300" Width="600" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
-        d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
+        d:DataContext="{d:DesignInstance viewModels1:IMainWindowViewModel, IsDesignTimeCreatable=False}"
         StateChanged="Window_OnStateChanged"
         UseLayoutRounding="True">
     <Window.Style>

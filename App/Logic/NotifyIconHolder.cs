@@ -1,24 +1,24 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
-using App.Logic.Utils;
+using App.Interfaces.Logic;
+using App.Interfaces.Logic.Utils;
 using App.Properties;
 using App.Windows;
 using JetBrains.Annotations;
 
 namespace App.Logic
 {
-    public class NotifyIconHolder : IDisposable
+    public class NotifyIconHolder : INotifyIconHolder
     {
         [NotNull] public NotifyIcon NotifyIcon { get; }
 
-        [NotNull] private readonly Provider<MainWindow> _mainWindowProvider;
+        [NotNull] private readonly IProvider<MainWindow> _mainWindowProvider;
 
         public NotifyIconHolder(
             [NotNull] NotifyIcon notifyIcon,
-            [NotNull] Provider<MainWindow> mainWindowProvider,
-            [NotNull] AppUtils appUtils
+            [NotNull] IProvider<MainWindow> mainWindowProvider,
+            [NotNull] IAppUtils appUtils
         )
         {
             NotifyIcon = notifyIcon;

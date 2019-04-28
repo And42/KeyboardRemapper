@@ -1,9 +1,10 @@
-﻿using Autofac;
+﻿using App.Interfaces.Logic;
+using Autofac;
 using JetBrains.Annotations;
 
 namespace App.Logic
 {
-    public class Provider<T>
+    public class Provider<T> : IProvider<T>
     {
         [NotNull]
         private readonly ILifetimeScope _lifetimeScope;

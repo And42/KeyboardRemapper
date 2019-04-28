@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
 using AdonisUI;
+using App.Interfaces.Logic;
+using App.Interfaces.Logic.Utils;
 using JetBrains.Annotations;
 using MVVM_Tools.Code.Classes;
 
 namespace App.Logic.Utils
 {
-    public class ThemingUtils : BindableBase
+    public class ThemingUtils : BindableBase, IThemingUtils
     {
-        [NotNull] private readonly AppSettings _appSettings;
+        [NotNull] private readonly IAppSettings _appSettings;
 
         public AppThemes CurrentTheme
         {
@@ -20,7 +22,7 @@ namespace App.Logic.Utils
 
         public IReadOnlyList<AppThemes> AvailableThemes { get; } = (AppThemes[]) Enum.GetValues(typeof(AppThemes));
 
-        public ThemingUtils([NotNull] AppSettings appSettings)
+        public ThemingUtils([NotNull] IAppSettings appSettings)
         {
             _appSettings = appSettings;
 
@@ -48,7 +50,7 @@ namespace App.Logic.Utils
         {
             switch (e.PropertyName)
             {
-                case nameof(AppSettings.AppTheme):
+                case nameof(IAppSettings.AppTheme):
                     OnPropertyChanged(nameof(CurrentTheme));
                     ApplyCurrent();
                     break;

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using WindowsInput.Native;
+using App.Interfaces.ViewModels;
+using App.Logic;
 using App.Logic.Operations;
 using JetBrains.Annotations;
 using MVVM_Tools.Code.Classes;
@@ -9,13 +11,8 @@ using MVVM_Tools.Code.Commands;
 
 namespace App.ViewModels
 {
-    public class NewMappingWindowViewModel : BindableBase
+    public class NewMappingWindowViewModel : BindableBase, INewMappingWindowViewModel
     {
-        public enum RecordingStates
-        {
-            Idle, SourceKey, MappedKey
-        }
-
         public IReadOnlyList<int> AvailableKeys { get; } = Array.ConvertAll((VirtualKeyCode[]) Enum.GetValues(typeof(VirtualKeyCode)), it => (int) it);
 
         public int SourceKey

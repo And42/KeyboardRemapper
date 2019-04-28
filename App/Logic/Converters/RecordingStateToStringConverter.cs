@@ -1,21 +1,20 @@
 ﻿using System;
 using System.Globalization;
-using App.ViewModels;
 using MVVM_Tools.Code.Classes;
 
 namespace App.Logic.Converters
 {
-    public class RecordingStateToStringConverter : ConverterBase<NewMappingWindowViewModel.RecordingStates, string>
+    public class RecordingStateToStringConverter : ConverterBase<RecordingStates, string>
     {
-        public override string ConvertInternal(NewMappingWindowViewModel.RecordingStates value, object parameter, CultureInfo culture)
+        public override string ConvertInternal(RecordingStates value, object parameter, CultureInfo culture)
         {
             switch (value)
             {
-                case NewMappingWindowViewModel.RecordingStates.Idle:
+                case RecordingStates.Idle:
                     return "Recording stopped";
-                case NewMappingWindowViewModel.RecordingStates.SourceKey:
+                case RecordingStates.SourceKey:
                     return "Recording source key";
-                case NewMappingWindowViewModel.RecordingStates.MappedKey:
+                case RecordingStates.MappedKey:
                     return "Recording mapped key";
                 default:
                     throw new Exception("unknown recording state");

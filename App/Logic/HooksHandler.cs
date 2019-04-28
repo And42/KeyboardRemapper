@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using App.Interfaces.Logic;
 using JetBrains.Annotations;
 
 namespace App.Logic
 {
-    public class HooksHandler : IDisposable
+    public class HooksHandler : IHooksHandler
     {
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly WinApi.LowLevelKeyboardProc _hookProc;

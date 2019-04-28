@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using App.Interfaces.Logic;
 using SettingsManager;
 
 namespace App.Logic
 {
-    public class AppSettings : SettingsModel
+    public class AppSettings : SettingsModel, IAppSettings
     {
         public virtual int SettingsVersion { get; set; } = 2;
 

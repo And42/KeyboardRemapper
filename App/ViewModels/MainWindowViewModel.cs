@@ -5,10 +5,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using App.Interfaces.Logic;
+using App.Interfaces.Logic.Utils;
+using App.Interfaces.ViewModels;
 using App.Logic;
 using App.Logic.JsonModels;
 using App.Logic.Operations;
-using App.Logic.Utils;
 using App.Properties;
 using App.Windows;
 using JetBrains.Annotations;
@@ -19,7 +21,7 @@ using Newtonsoft.Json;
 
 namespace App.ViewModels
 {
-    public class MainWindowViewModel : BindableBase
+    public class MainWindowViewModel : BindableBase, IMainWindowViewModel
     {
         private const string StartupRegistryKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
@@ -58,23 +60,23 @@ namespace App.ViewModels
         public IActionCommand ImportMappingsCommand { get; }
         public IActionCommand ExportMappingsCommand { get; }
 
-        [NotNull] private readonly KeyMappingsHandler _keyMappingsHandler;
-        [NotNull] private readonly Provider<NewMappingWindow> _newMappingWindowProvider;
+        [NotNull] private readonly IKeyMappingsHandler _keyMappingsHandler;
+        [NotNull] private readonly IProvider<NewMappingWindow> _newMappingWindowProvider;
         [NotNull] private readonly MappingOperation _mappingOperation;
-        [NotNull] private readonly AppUtils _appUtils;
-        [NotNull] private readonly ThemingUtils _themingUtils;
-        [NotNull] private readonly AppSettings _appSettings;
+        [NotNull] private readonly IAppUtils _appUtils;
+        [NotNull] private readonly IThemingUtils _themingUtils;
+        [NotNull] private readonly IAppSettings _appSettings;
 
         private bool _startWithWindows;
         private KeyToKeyViewModel _selectedKey;
 
         public MainWindowViewModel(
-            [NotNull] KeyMappingsHandler keyMappingsHandler,
-            [NotNull] Provider<NewMappingWindow> newMappingWindowProvider,
+            [NotNull] IKeyMappingsHandler keyMappingsHandler,
+            [NotNull] IProvider<NewMappingWindow> newMappingWindowProvider,
             [NotNull] MappingOperation mappingOperation,
-            [NotNull] AppUtils appUtils,
-            [NotNull] ThemingUtils themingUtils,
-            [NotNull] AppSettings appSettings
+            [NotNull] IAppUtils appUtils,
+            [NotNull] IThemingUtils themingUtils,
+            [NotNull] IAppSettings appSettings
         )
         {
             _keyMappingsHandler = keyMappingsHandler;
@@ -273,7 +275,7 @@ namespace App.ViewModels
         {
             switch (e.PropertyName)
             {
-                case nameof(ThemingUtils.CurrentTheme):
+                case nameof(IThemingUtils.CurrentTheme):
                     OnPropertyChanged(nameof(AppTheme));
                     break;
             }
@@ -283,7 +285,7 @@ namespace App.ViewModels
         {
             switch (e.PropertyName)
             {
-                case nameof(AppSettings.StartMinimized):
+                case nameof(IAppSettings.StartMinimized):
                     OnPropertyChanged(nameof(StartMinimized));
                     break;
             }

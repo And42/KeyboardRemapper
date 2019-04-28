@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Windows;
-using App.Logic;
-using App.ViewModels;
+using App.Interfaces.Logic;
+using App.Interfaces.ViewModels;
 using JetBrains.Annotations;
 
 namespace App.Windows
 {
     public partial class MainWindow
     {
-        [NotNull] private readonly NotifyIconHolder _notifyIconHolder;
+        [NotNull] private readonly INotifyIconHolder _notifyIconHolder;
 
         public MainWindow(
-            [NotNull] MainWindowViewModel viewModel,
-            [NotNull] NotifyIconHolder notifyIconHolder
+            [NotNull] IMainWindowViewModel viewModel,
+            [NotNull] INotifyIconHolder notifyIconHolder
         )
         {
             _notifyIconHolder = notifyIconHolder;

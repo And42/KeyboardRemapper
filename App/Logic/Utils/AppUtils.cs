@@ -1,10 +1,11 @@
 ﻿using System.IO;
 using System.Reflection;
+using App.Interfaces.Logic.Utils;
 using JetBrains.Annotations;
 
 namespace App.Logic.Utils
 {
-    public class AppUtils
+    public class AppUtils : IAppUtils
     {
         [NotNull]
         public string GetExecutablePath()

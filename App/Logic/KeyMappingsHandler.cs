@@ -3,24 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using WindowsInput;
 using WindowsInput.Native;
+using App.Interfaces.Logic;
 using JetBrains.Annotations;
 
 namespace App.Logic
 {
-    public class KeyMappingsHandler : IDisposable
+    public class KeyMappingsHandler : IKeyMappingsHandler
     {
         public IReadOnlyDictionary<int, int> KeyMappings => _keyMappings;
 
-        [NotNull] private readonly AppSettings _appSettings;
-        [NotNull] private readonly HooksHandler _hooksHandler;
+        [NotNull] private readonly IAppSettings _appSettings;
+        [NotNull] private readonly IHooksHandler _hooksHandler;
 
         private readonly IInputSimulator _inputSimulator = new InputSimulator();
         private readonly Dictionary<int, int> _keyMappings = new Dictionary<int, int>();
         private readonly AtomicBoolean _disposed = new AtomicBoolean();
 
         public KeyMappingsHandler(
-            [NotNull] AppSettings appSettings,
-            [NotNull] HooksHandler hooksHandler
+            [NotNull] IAppSettings appSettings,
+            [NotNull] IHooksHandler hooksHandler
         )
         {
             _appSettings = appSettings;

@@ -95,11 +95,21 @@
     <Compile Include="Logic\AtomicBoolean.cs" />
     <Compile Include="Logic\Converters\KeyToRepresentationConverter.cs" />
     <Compile Include="Logic\Converters\RecordingStateToStringConverter.cs" />
+    <Compile Include="Interfaces\Logic\IAppSettings.cs" />
+    <Compile Include="Interfaces\Logic\IHooksHandler.cs" />
+    <Compile Include="Interfaces\Logic\IKeyMappingsHandler.cs" />
+    <Compile Include="Interfaces\Logic\INotifyIconHolder.cs" />
+    <Compile Include="Interfaces\Logic\IProvider.cs" />
     <Compile Include="Logic\JsonModels\ExportedMappings.cs" />
     <Compile Include="Logic\KeyMappingsHandler.cs" />
     <Compile Include="Logic\NotifyIconHolder.cs" />
     <Compile Include="Logic\Provider.cs" />
+    <Compile Include="Interfaces\Logic\Utils\IAppUtils.cs" />
+    <Compile Include="Interfaces\Logic\Utils\IThemingUtils.cs" />
     <Compile Include="Logic\Utils\ThemingUtils.cs" />
+    <Compile Include="Interfaces\ViewModels\IMainWindowViewModel.cs" />
+    <Compile Include="Interfaces\ViewModels\INewMappingWindowViewModel.cs" />
+    <Compile Include="Logic\RecordingStates.cs" />
     <Compile Include="Windows\NewMappingWindow.xaml.cs">
       <DependentUpon>NewMappingWindow.xaml</DependentUpon>
     </Compile>

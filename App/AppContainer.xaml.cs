@@ -1,6 +1,9 @@
 ﻿using System.IO;
 using System.Windows;
 using System.Windows.Forms;
+using App.Interfaces.Logic;
+using App.Interfaces.Logic.Utils;
+using App.Interfaces.ViewModels;
 using App.Logic;
 using App.Logic.Operations;
 using App.Logic.Utils;
@@ -27,27 +30,27 @@ namespace App
             container.RegisterType<NewMappingWindow>();
 
             // view models
-            container.RegisterType<MainWindowViewModel>().SingleInstance();
-            container.RegisterType<NewMappingWindowViewModel>();
+            container.RegisterType<MainWindowViewModel>().As<IMainWindowViewModel>().SingleInstance();
+            container.RegisterType<NewMappingWindowViewModel>().As<INewMappingWindowViewModel>();
 
             // operations
             container.RegisterType<MappingOperation>().SingleInstance();
 
             // utils
-            container.RegisterType<AppUtils>().SingleInstance();
-            container.RegisterType<ThemingUtils>().SingleInstance();
+            container.RegisterType<AppUtils>().As<IAppUtils>().SingleInstance();
+            container.RegisterType<ThemingUtils>().As<IThemingUtils>().SingleInstance();
 
             // other
             container.Register(context => new SettingsBuilder<AppSettings>()
-                .WithFile(Path.Combine(context.Resolve<AppUtils>().GetExecutableDir() ?? string.Empty, "appSettings.json"))
+                .WithFile(Path.Combine(context.Resolve<IAppUtils>().GetExecutableDir() ?? string.Empty, "appSettings.json"))
                 .WithProcessor(new JsonModelProcessor())
                 .Build()
-            ).SingleInstance().As<AppSettings>();
-            container.RegisterType<HooksHandler>().SingleInstance();
-            container.RegisterGeneric(typeof(Provider<>)).SingleInstance();
+            ).SingleInstance().As<IAppSettings>();
+            container.RegisterType<HooksHandler>().As<IHooksHandler>().SingleInstance();
+            container.RegisterGeneric(typeof(Provider<>)).As(typeof(IProvider<>)).SingleInstance();
             container.RegisterType<NotifyIcon>().SingleInstance();
-            container.RegisterType<NotifyIconHolder>().SingleInstance();
-            container.RegisterType<KeyMappingsHandler>().SingleInstance();
+            container.RegisterType<NotifyIconHolder>().As<INotifyIconHolder>().SingleInstance();
+            container.RegisterType<KeyMappingsHandler>().As<IKeyMappingsHandler>().SingleInstance();
 
             _container = container.Build();
 
@@ -56,9 +59,9 @@ namespace App
 
         protected override void OnExit(ExitEventArgs e)
         {
-            _container.Resolve<KeyMappingsHandler>().Dispose();
-            _container.Resolve<HooksHandler>().Dispose();
-            _container.Resolve<NotifyIconHolder>().Dispose();
+            _container.Resolve<IKeyMappingsHandler>().Dispose();
+            _container.Resolve<IHooksHandler>().Dispose();
+            _container.Resolve<INotifyIconHolder>().Dispose();
 
             base.OnExit(e);
         }
@@ -66,19 +69,19 @@ namespace App
         private void Initialize()
         {
             // constructor invocation starts hooking
-            _container.Resolve<KeyMappingsHandler>();
+            _container.Resolve<IKeyMappingsHandler>();
 
             // apply app theme
-            _container.Resolve<ThemingUtils>().ApplyCurrent();
+            _container.Resolve<IThemingUtils>().ApplyCurrent();
 
             // start minimized if needed
             var mainWindow = _container.Resolve<MainWindow>();
 
-            if (_container.Resolve<AppSettings>().StartMinimized)
+            if (_container.Resolve<IAppSettings>().StartMinimized)
             {
                 mainWindow.WindowState = WindowState.Minimized;
                 mainWindow.ShowInTaskbar = false;
-                _container.Resolve<NotifyIconHolder>().NotifyIcon.Visible = true;
+                _container.Resolve<INotifyIconHolder>().NotifyIcon.Visible = true;
             }
 
             mainWindow.Show();

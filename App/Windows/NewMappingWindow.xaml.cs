@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using App.Logic;
-using App.ViewModels;
+using App.Interfaces.Logic;
+using App.Interfaces.ViewModels;
 using JetBrains.Annotations;
 
 namespace App.Windows
 {
     public partial class NewMappingWindow
     {
-        [NotNull] private readonly NewMappingWindowViewModel _viewModel;
-        [NotNull] private readonly HooksHandler _hooksHandler;
+        [NotNull] private readonly INewMappingWindowViewModel _viewModel;
+        [NotNull] private readonly IHooksHandler _hooksHandler;
 
         public NewMappingWindow(
-            [NotNull] NewMappingWindowViewModel viewModel,
-            [NotNull] HooksHandler hooksHandler
+            [NotNull] INewMappingWindowViewModel viewModel,
+            [NotNull] IHooksHandler hooksHandler
         )
         {
             _viewModel = viewModel;
