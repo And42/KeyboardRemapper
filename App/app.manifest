@@ -51,7 +51,7 @@
       <!-- The combination of below two tags have the following effect : 
       1) Per-Monitor for >= Windows 10 Anniversary Update
       2) System < Windows 10 Anniversary Update -->
-      <!-- Docs: https://github.com/Microsoft/WPF-Samples/blob/master/PerMonitorDPI/Developer%20Guide%20-%20Per%20Monitor%20DPI%20-%20WPF%20Preview.docx -->
+      <!-- Docs: https://github.com/Microsoft/WPF-Samples/blob/master/PerMonitorDPI -->
       <dpiAwareness xmlns="http://schemas.microsoft.com/SMI/2016/WindowsSettings">PerMonitor</dpiAwareness>
       <dpiAware xmlns="http://schemas.microsoft.com/SMI/2005/WindowsSettings">true</dpiAware>
     </windowsSettings>
