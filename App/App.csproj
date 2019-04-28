@@ -44,6 +44,12 @@
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdonisUI, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdonisUI.1.10.0\lib\net40\AdonisUI.dll</HintPath>
+    </Reference>
+    <Reference Include="AdonisUI.ClassicTheme, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdonisUI.ClassicTheme.1.10.0\lib\net40\AdonisUI.ClassicTheme.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac, Version=4.9.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.9.2\lib\net45\Autofac.dll</HintPath>
     </Reference>
@@ -85,6 +91,7 @@
     </ApplicationDefinition>
     <Compile Include="Logic\AppSettings.cs" />
     <Compile Include="Logic\AtomicBoolean.cs" />
+    <Compile Include="Logic\Converters\KeyToRepresentationConverter.cs" />
     <Compile Include="Logic\Converters\RecordingStateToStringConverter.cs" />
     <Compile Include="Logic\KeyMappingsHandler.cs" />
     <Compile Include="Logic\NotifyIconHolder.cs" />

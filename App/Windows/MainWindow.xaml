@@ -10,7 +10,8 @@
         Height="300" Width="600" MinHeight="200" MinWidth="400"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
-        StateChanged="Window_OnStateChanged">
+        StateChanged="Window_OnStateChanged"
+        UseLayoutRounding="True">
     <Grid Margin="5">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -23,20 +24,20 @@
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.RowSpan="3" ItemsSource="{Binding KeyMappings}">
-            <ListView.ItemTemplate>
+        <ListBox Grid.RowSpan="3" ItemsSource="{Binding KeyMappings}" BorderThickness="1">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock>
                         <TextBlock.Text>
                             <MultiBinding StringFormat="{}{0} -> {1}" Mode="OneWay">
-                                <Binding Path="SourceKey" Mode="OneWay"/>
-                                <Binding Path="MappedKey" Mode="OneWay"/>
+                                <Binding Path="SourceKey" Mode="OneWay" Converter="{StaticResource KeyToRepresentationConverter}"/>
+                                <Binding Path="MappedKey" Mode="OneWay" Converter="{StaticResource KeyToRepresentationConverter}"/>
                             </MultiBinding>
                         </TextBlock.Text>
                     </TextBlock>
                 </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel Grid.Column="2" MinWidth="100">
             <StackPanel.Resources>
