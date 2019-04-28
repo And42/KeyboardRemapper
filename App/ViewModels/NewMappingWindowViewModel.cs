@@ -67,6 +67,8 @@ namespace App.ViewModels
             PropertyChanged += OnPropertyChanged;
         }
 
+        #region Commands
+
         private void RecordKey_Execute(int keyCode)
         {
             if (_recordingState == RecordingStates.SourceKey)
@@ -84,6 +86,10 @@ namespace App.ViewModels
             _mappingOperation.Success = true;
         }
 
+        #endregion
+
+        #region Property observers
+
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -93,5 +99,7 @@ namespace App.ViewModels
                     break;
             }
         }
+
+        #endregion
     }
 }

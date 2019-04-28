@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
@@ -26,7 +25,7 @@ namespace App.ViewModels
 
         public ObservableCollection<KeyToKeyViewModel> KeyMappings { get; } = new ObservableCollection<KeyToKeyViewModel>();
 
-        public IReadOnlyList<AppThemes> AvailableThemes { get; } = (AppThemes[])Enum.GetValues(typeof(AppThemes));
+        public IReadOnlyList<AppThemes> AvailableThemes => _themingUtils.AvailableThemes;
 
         public bool StartWithWindows
         {
@@ -99,6 +98,8 @@ namespace App.ViewModels
             _themingUtils.PropertyChanged += ThemingUtils_OnPropertyChanged;
             _appSettings.PropertyChanged += AppSettings_OnPropertyChanged;
         }
+
+        #region Commands
 
         private void DeleteMapping_Execute()
         {
@@ -222,6 +223,8 @@ namespace App.ViewModels
             File.WriteAllText(dialog.FileName, JsonConvert.SerializeObject(exportedModel, Formatting.Indented), Encoding.UTF8);
         }
 
+        #endregion
+
         private bool GetStartupValue()
         {
             RegistryKey rk = Registry.CurrentUser.OpenSubKey(StartupRegistryKey, false);
@@ -250,6 +253,8 @@ namespace App.ViewModels
             else
                 rk.DeleteValue(Resources.AppTitle, false);
         }
+
+        #region Property observers
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -283,5 +288,7 @@ namespace App.ViewModels
                     break;
             }
         }
+
+        #endregion
     }
 }
