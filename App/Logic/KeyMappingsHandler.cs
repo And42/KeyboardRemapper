@@ -30,29 +30,32 @@ namespace App.Logic
             {
                 foreach (var mapping in appSettings.KeyMappings)
                 {
-                    hooksHandler.AddHook(mapping.Key, CreateMappingHandler(mapping.Value));
+                    hooksHandler.SetHook(mapping.Key, CreateMappingHandler(mapping.Value));
                     _keyMappings.Add(mapping.Key, mapping.Value);
                 }
             }
         }
 
-        public void AddMapping(int sourceKey, int targetKey)
+        public void SetMapping(int sourceKey, int targetKey)
         {
             CheckDisposed();
 
-            _keyMappings.Add(sourceKey, targetKey);
-            _hooksHandler.AddHook(sourceKey, CreateMappingHandler(targetKey));
+            _keyMappings[sourceKey] = targetKey;
+            _hooksHandler.SetHook(sourceKey, CreateMappingHandler(targetKey));
             UpdateSettings();
         }
 
-        public void RemoveMapping(int sourceKey)
+        public bool RemoveMapping(int sourceKey)
         {
-            throw new NotImplementedException();
-
             CheckDisposed();
 
-            _keyMappings.Remove(sourceKey);
+            if (!_keyMappings.Remove(sourceKey))
+                return false;
+
+            _hooksHandler.RemoveHook(sourceKey);
             UpdateSettings();
+
+            return true;
         }
 
         public void RemoveAllMappings()

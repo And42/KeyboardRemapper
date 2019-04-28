@@ -10,7 +10,7 @@ namespace App.Logic
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
         private readonly WinApi.LowLevelKeyboardProc _hookProc;
         private readonly IntPtr _hookPtr;
-        private readonly Dictionary<int, List<Action>> _hooks = new Dictionary<int, List<Action>>();
+        private readonly Dictionary<int, Action> _hooks = new Dictionary<int, Action>();
         private readonly AtomicBoolean _disposed = new AtomicBoolean();
 
         public HooksHandler()
@@ -20,25 +20,18 @@ namespace App.Logic
             _hookPtr = WinApi.SetWindowsHookEx(WinApi.WH_KEYBOARD_LL, _hookProc, hInstance, 0);
         }
 
-        public void AddHook(int keyCode, [NotNull] Action handler)
+        public void SetHook(int keyCode, [NotNull] Action handler)
         {
             CheckDisposed();
 
-            List<Action> handlers;
-            if (!_hooks.TryGetValue(keyCode, out handlers))
-            {
-                handlers = new List<Action>();
-                _hooks[keyCode] = handlers;
-            }
-
-            handlers.Add(handler);
+            _hooks[keyCode] = handler;
         }
 
-        public bool RemoveHook(int keyCode, [NotNull] Action handler)
+        public bool RemoveHook(int keyCode)
         {
             CheckDisposed();
 
-            return _hooks.TryGetValue(keyCode, out List<Action> handlers) && handlers.Remove(handler);
+            return _hooks.Remove(keyCode);
         }
 
         public void RemoveAllHooks()
@@ -62,13 +55,10 @@ namespace App.Logic
             if (code >= 0 && (keyDown || keyUp))
             {
                 int vkCode = Marshal.ReadInt32(lParam);
-                if (_hooks.TryGetValue(vkCode, out List<Action> handlers))
+                if (_hooks.TryGetValue(vkCode, out Action handler))
                 {
                     if (keyDown)
-                    {
-                        foreach (var handler in handlers)
-                            handler();
-                    }
+                        handler();
 
                     return (IntPtr)1;
                 }

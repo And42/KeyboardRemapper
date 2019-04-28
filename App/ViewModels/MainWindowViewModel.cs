@@ -64,7 +64,7 @@ namespace App.ViewModels
 
             if (_mappingOperation.Success)
             {
-                _keyMappingsHandler.AddMapping(_mappingOperation.SourceKey, _mappingOperation.MappedKey);
+                _keyMappingsHandler.SetMapping(_mappingOperation.SourceKey, _mappingOperation.MappedKey);
                 KeyMappings.Add(new KeyToKeyViewModel {SourceKey = _mappingOperation.SourceKey, MappedKey = _mappingOperation.MappedKey});
             }
         }
