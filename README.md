@@ -25,7 +25,7 @@ App icon will be shown in the tray where you can click on it to restore the main
 
 Not so many actually but just to mention:
 * Two available themes: Light and Dark; you can choose the needed one from the dropdown list in the right bottom corner
-* Export and import mappings to/from a json file (you can change it in any text editor of your choice)
+* Export and import mappings to/from a json file (you can edit it in any text editor of your choice)
 
 # Restrictions?
 
