@@ -26,3 +26,7 @@ App icon will be shown in the tray where you can click on it to restore the main
 Not so many actually but just to mention:
 * Two available themes: Light and Dark; you can choose the needed one from the dropdown list in the right botton corner
 * Export and import mappings to/from a json file (you can change it in any text editor of your choice)
+
+# Restrictions?
+
+Hmm, yeah, have a bit. It is running only with .Net Framework 4.7.2+. You can install it on the Windows 7 and above as a consequence of that. Windows XP is a bit old (you can argue that it is still the best one and is used by a lot of people but just want to have all the new features that exist in .Net Framework above 4.0) and Windows Vista was born to die :( So, I decided to support only Windows 7+.
