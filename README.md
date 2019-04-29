@@ -24,7 +24,7 @@ App icon will be shown in the tray where you can click on it to restore the main
 # Any other cool features?
 
 Not so many actually but just to mention:
-* Two available themes: Light and Dark; you can choose the needed one from the dropdown list in the right botton corner
+* Two available themes: Light and Dark; you can choose the needed one from the dropdown list in the right bottom corner
 * Export and import mappings to/from a json file (you can change it in any text editor of your choice)
 
 # Restrictions?
