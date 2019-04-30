@@ -164,22 +164,22 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="FodyWeavers.xml" />
-    <Content Include="Libraries\AlphaFS.dll" />
-    <Content Include="Libraries\Castle.Core.dll" />
-    <Content Include="Libraries\MVVM_Tools.dll" />
-    <Content Include="Libraries\MVVM_Tools.pdb" />
+    <None Include="Libraries\AlphaFS.dll" />
+    <None Include="Libraries\Castle.Core.dll" />
+    <None Include="Libraries\MVVM_Tools.dll" />
+    <None Include="Libraries\MVVM_Tools.pdb" />
     <Resource Include="Resources\icon.ico" />
-    <Resource Include="Libraries\MVVM_Tools.xml" />
-    <Resource Include="Libraries\Castle.Core.xml" />
-    <Content Include="Libraries\LongPaths.dll" />
-    <Content Include="Libraries\LongPaths.pdb" />
-    <Content Include="Libraries\Newtonsoft.Json.dll" />
-    <Content Include="Libraries\Newtonsoft.Json.pdb" />
-    <Resource Include="Libraries\Newtonsoft.Json.xml" />
-    <Content Include="Libraries\SettingsManager.dll" />
-    <Content Include="Libraries\SettingsManager.pdb" />
-    <Resource Include="Libraries\SettingsManager.xml" />
-    <Resource Include="Libraries\zzz_dependencies.txt" />
+    <None Include="Libraries\MVVM_Tools.xml" />
+    <None Include="Libraries\Castle.Core.xml" />
+    <None Include="Libraries\LongPaths.dll" />
+    <None Include="Libraries\LongPaths.pdb" />
+    <None Include="Libraries\Newtonsoft.Json.dll" />
+    <None Include="Libraries\Newtonsoft.Json.pdb" />
+    <None Include="Libraries\Newtonsoft.Json.xml" />
+    <None Include="Libraries\SettingsManager.dll" />
+    <None Include="Libraries\SettingsManager.pdb" />
+    <None Include="Libraries\SettingsManager.xml" />
+    <None Include="Libraries\zzz_dependencies.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\packages\Fody.4.2.1\build\Fody.targets')" />
