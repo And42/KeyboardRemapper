@@ -167,17 +167,13 @@
     <None Include="Libraries\AlphaFS.dll" />
     <None Include="Libraries\Castle.Core.dll" />
     <None Include="Libraries\MVVM_Tools.dll" />
-    <None Include="Libraries\MVVM_Tools.pdb" />
     <Resource Include="Resources\icon.ico" />
     <None Include="Libraries\MVVM_Tools.xml" />
     <None Include="Libraries\Castle.Core.xml" />
     <None Include="Libraries\LongPaths.dll" />
-    <None Include="Libraries\LongPaths.pdb" />
     <None Include="Libraries\Newtonsoft.Json.dll" />
-    <None Include="Libraries\Newtonsoft.Json.pdb" />
     <None Include="Libraries\Newtonsoft.Json.xml" />
     <None Include="Libraries\SettingsManager.dll" />
-    <None Include="Libraries\SettingsManager.pdb" />
     <None Include="Libraries\SettingsManager.xml" />
     <None Include="Libraries\zzz_dependencies.txt" />
   </ItemGroup>
