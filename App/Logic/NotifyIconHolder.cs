@@ -35,7 +35,7 @@ namespace App.Logic
                 return;
 
             _mainWindowProvider.Get().WindowState = WindowState.Normal;
-            _mainWindowProvider.Get().Activate();
+            _mainWindowProvider.Get().Show();
         }
 
         public void Dispose()

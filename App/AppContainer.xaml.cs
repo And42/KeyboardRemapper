@@ -74,17 +74,11 @@ namespace App
             // apply app theme
             _container.Resolve<IThemingUtils>().ApplyCurrent();
 
-            // start minimized if needed
-            var mainWindow = _container.Resolve<MainWindow>();
-
+            // show main window or tray icon
             if (_container.Resolve<IAppSettings>().StartMinimized)
-            {
-                mainWindow.WindowState = WindowState.Minimized;
-                mainWindow.ShowInTaskbar = false;
                 _container.Resolve<INotifyIconHolder>().NotifyIcon.Visible = true;
-            }
-
-            mainWindow.Show();
+            else
+                _container.Resolve<MainWindow>().Show();
         }
     }
 }
